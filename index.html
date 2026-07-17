@@ -99,6 +99,41 @@ tailwind.config={theme:{extend:{
  .archbox{background:#fff;border:1px solid #E7DACE;border-radius:13px;box-shadow:0 1px 2px rgba(42,14,24,.04),0 14px 30px -18px rgba(42,14,24,.16)}
  .modchip{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#F3E7EB;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:7px;padding:6px 10px}
  .price{font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:-.02em}
+
+ /* ===== Мобильная адаптация: reveal масштабирует слайд, но фикс-обвязка — нет.
+    На маленьких/ландшафтных экранах ужимаем обвязку, чтоб не перекрывала контент. ===== */
+ @media (max-width: 900px), (max-height: 560px){
+   .topbar{padding:8px 14px}
+   .topbar .tb-left{font-size:11px;gap:6px}
+   .topbar .tb-left .logo{width:22px !important;height:22px !important;border-radius:7px}
+   .topbar .tb-left .eyebrow{font-size:9px}
+   .topbar .tb-right{font-size:9px}
+   .footbar{padding:6px 14px}
+   .footbar .fb-side{font-size:9px;min-width:auto}
+   .footbar .fb-tag{font-size:9.5px;padding:0 8px}
+   .navbar{bottom:8px;gap:9px;padding:4px 4px 4px 12px}
+   .navbar .nmeta{font-size:10.5px}
+   .nbtn{width:30px;height:30px;font-size:13px}
+   .nbtn.primary{height:30px;padding:0 13px;font-size:11.5px;gap:5px}
+   .dot{width:5px;height:5px}
+   .dot.on{width:15px}
+   .bgnum{font-size:200px;right:-16px}
+ }
+ /* Совсем узкие/короткие: убираем таглайн и мету навбара, оставляем стрелки+точки+Далее */
+ @media (max-height: 430px){
+   .footbar .fb-tag{display:none}
+   .navbar .nmeta{display:none}
+   .navbar{padding:4px 4px 4px 6px}
+ }
+ /* Портрет-телефон: слайд 16:9 сильно letterbox-ится — просим повернуть.
+    ВАЖНО: база display:none объявлена ДО медиа-запроса, чтобы медиа (позже) выигрывал каскад. */
+ #rotateHint{display:none;position:fixed;inset:0;z-index:100;background:#FAF6F2;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:32px}
+ #rotateHint .rh-ic{font-size:52px;color:#8A1E3D}
+ #rotateHint b{font-size:19px;color:#2A0E18}
+ #rotateHint span{font-size:14px;color:#6B5157;max-width:320px}
+ @media (max-width: 760px) and (orientation: portrait){
+   #rotateHint{display:flex}
+ }
 </style>
 </head>
 <body>
@@ -426,6 +461,12 @@ tailwind.config={theme:{extend:{
   <button class="nbtn primary" id="nextBtn">Далее <i class="ph-bold ph-arrow-right"></i></button>
 </div>
 <div class="grain"></div>
+
+<div id="rotateHint">
+  <i class="ph-fill ph-device-rotate rh-ic"></i>
+  <b>Поверните телефон горизонтально</b>
+  <span>Презентация рассчитана на широкий экран — в альбомной ориентации она раскрывается полностью.</span>
+</div>
 
 <script>
 (function(){
