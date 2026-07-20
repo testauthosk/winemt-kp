@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAGIC TREE · План работ и оплата по этапам</title>
+
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{
+ colors:{bg:'#FAF6F2',surf:'#FFFFFF',elev:'#F3EBE4',line:'#E7DACE',ink:'#2A0E18',t2:'#6B5157',t3:'#9A8288',
+  ac:'#8A1E3D',acd:'#641129',act:'#F6E7EC',gold:'#B08A3C',pos:'#2E7D46',neg:'#C0392B',warn:'#C77D2E',dk:'#24101A'},
+ fontFamily:{sans:['"IBM Plex Sans"','system-ui','sans-serif'],mono:['"IBM Plex Mono"','ui-monospace','monospace']},
+ borderRadius:{card:'14px',btn:'10px'}}}}
+</script>
+
+<style>
+ :root{ --ac:#8A1E3D; --acd:#641129; }
+ html,body{margin:0;height:100%;background:#FAF6F2;color:#2A0E18;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased}
+ .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1,"zero" 1}
+ .mono{font-family:'IBM Plex Mono',monospace}
+ .eyebrow{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:600;color:#8A1E3D}
+ .lbl{text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:600}
+
+ .stage{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+   radial-gradient(120% 80% at 88% 2%, rgba(138,30,61,.10), transparent 46%),
+   radial-gradient(80% 70% at 2% 100%, rgba(176,138,60,.07), transparent 55%),#FAF6F2}
+ .bg-dot{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle,#E7D6DC 1px,transparent 1px);background-size:32px 32px;opacity:.5}
+ .bgnum{position:fixed;top:50%;right:-26px;transform:translateY(-50%);z-index:0;pointer-events:none;
+   font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:330px;line-height:1;color:#2A0E18;opacity:.03;user-select:none}
+ .grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.03;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+ .reveal{font-family:'IBM Plex Sans',sans-serif;color:#2A0E18}
+ .reveal .slides{text-align:left}
+ .reveal .slides section{width:1280px;padding:80px 80px 86px;box-sizing:border-box;overflow:hidden;background:transparent}
+ .reveal h1,.reveal h2,.reveal h3{font-family:'IBM Plex Sans',sans-serif;text-transform:none;letter-spacing:-.022em;margin:0;line-height:1.06;font-weight:700;color:#2A0E18}
+ .reveal p{margin:0;line-height:1.5}
+ .reveal .controls,.reveal .progress,.reveal .slide-number{display:none}
+
+ .logo{position:relative;width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#8A1E3D,#641129);display:grid;place-items:center;box-shadow:0 8px 22px -10px rgba(100,17,41,.7)}
+ .card-sh{box-shadow:0 1px 2px rgba(42,14,24,.04),0 12px 34px -16px rgba(42,14,24,.16)}
+ .glowline{background:linear-gradient(90deg,transparent,#8A1E3D,transparent);height:2px;transform-origin:center}
+ .goldline{background:linear-gradient(90deg,transparent,#B08A3C,transparent);height:2px;transform-origin:center}
+ .src{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:inherit}
+ .chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;background:#fff;border:1px solid #E7DACE;border-radius:999px;padding:7px 14px;color:#2A0E18}
+ .chip-ac{background:#F6E7EC;border-color:#E9C9D3;color:#641129}
+ .mask{display:block;overflow:hidden;padding-bottom:.06em}
+ .mask>span{display:block}
+
+ .dk{background:linear-gradient(180deg,#24101A 0%,#170A10 100%);color:#F3E7EB;border:1px solid #3A2029;border-radius:12px;box-shadow:0 30px 70px -34px rgba(20,6,12,.7)}
+ .dk .dlbl{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:9.5px;font-weight:600;color:#B98A98}
+ .dk-cell{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:9px}
+
+ .topbar{position:fixed;top:0;left:0;right:0;z-index:45;display:flex;justify-content:space-between;align-items:center;padding:16px 28px;pointer-events:none}
+ .topbar .tb-left{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;color:#2A0E18}
+ .topbar .tb-right{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#9A8288}
+ .footbar{position:fixed;bottom:0;left:0;right:0;z-index:44;display:flex;justify-content:space-between;align-items:center;padding:13px 28px;pointer-events:none}
+ .footbar .fb-side{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9A8288;letter-spacing:.04em;min-width:150px}
+ .footbar .fb-tag{font-style:italic;font-size:12.5px;color:#6B5157;text-align:center;flex:1}
+ .footbar .fb-num{text-align:right}
+
+ .navbar{position:fixed;left:50%;bottom:46px;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:14px;
+   background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border:1px solid #E7DACE;border-radius:999px;padding:7px 7px 7px 16px;
+   box-shadow:0 12px 40px -16px rgba(42,14,24,.32)}
+ .nmeta{font-size:12px;font-weight:600;color:#6B5157;white-space:nowrap}
+ .nmeta b{color:#2A0E18}.nmeta .mono{color:#8A1E3D}
+ .dots{display:flex;gap:5px;align-items:center}
+ .dot{width:6px;height:6px;border-radius:50%;background:#E0CDD4;cursor:pointer;transition:all .25s ease}
+ .dot.on{background:#8A1E3D;width:20px;border-radius:99px}
+ .nbtn{width:36px;height:36px;border-radius:50%;border:1px solid #E0CDD4;background:#fff;color:#2A0E18;display:grid;place-items:center;cursor:pointer;transition:all .15s ease;font-size:15px}
+ .nbtn:hover{border-color:#8A1E3D;color:#641129}
+ .nbtn:disabled{opacity:.34;cursor:default}
+ .nbtn.primary{width:auto;border-radius:999px;padding:0 17px;height:36px;background:#8A1E3D;color:#FFF5F8;border:none;font-weight:600;font-size:13px;gap:7px;box-shadow:0 10px 24px -10px rgba(138,30,61,.7)}
+ .nbtn.primary:hover{background:#7A1A34;color:#fff}
+
+ .draw{fill:none;stroke:#8A1E3D;stroke-width:2;stroke-linecap:round}
+ a{color:inherit;text-decoration:none}
+ ::selection{background:#8A1E3D;color:#FFF5F8}
+ .reveal .fragment.fade-up{transform:translateY(16px)}
+ .reveal .fragment.fade-up.visible{transform:none}
+
+ .feat{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#2A0E18;line-height:1.35}
+ .feat i{color:#8A1E3D;font-size:18px;margin-top:1px;flex:none}
+ .cut{display:flex;align-items:center;gap:9px;font-size:14px;color:#9A8288}
+ .cut i{color:#C0392B;font-size:17px;flex:none}
+ .phase{position:relative;background:#fff;border:1px solid #E7DACE;border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(42,14,24,.04),0 12px 30px -18px rgba(42,14,24,.14)}
+ .phase .pnum{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px;color:#B08A3C;letter-spacing:.05em}
+ .pbadge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#641129;background:#F6E7EC;border:1px solid #E9C9D3;border-radius:999px;padding:3px 10px}
+ .archbox{background:#fff;border:1px solid #E7DACE;border-radius:13px;box-shadow:0 1px 2px rgba(42,14,24,.04),0 14px 30px -18px rgba(42,14,24,.16)}
+ .modchip{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#F3E7EB;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:7px;padding:6px 10px}
+ .price{font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:-.02em}
+
+ /* ===== Мобильная адаптация: reveal масштабирует слайд, но фикс-обвязка — нет.
+    На маленьких/ландшафтных экранах ужимаем обвязку, чтоб не перекрывала контент. ===== */
+ @media (max-width: 900px), (max-height: 560px){
+   .topbar{padding:8px 14px}
+   .topbar .tb-left{font-size:11px;gap:6px}
+   .topbar .tb-left .logo{width:22px !important;height:22px !important;border-radius:7px}
+   .topbar .tb-left .eyebrow{font-size:9px}
+   .topbar .tb-right{font-size:9px}
+   .footbar{padding:6px 14px}
+   .footbar .fb-side{font-size:9px;min-width:auto}
+   .footbar .fb-tag{font-size:9.5px;padding:0 8px}
+   .navbar{bottom:8px;gap:9px;padding:4px 4px 4px 12px}
+   .navbar .nmeta{font-size:10.5px}
+   .nbtn{width:30px;height:30px;font-size:13px}
+   .nbtn.primary{height:30px;padding:0 13px;font-size:11.5px;gap:5px}
+   .dot{width:5px;height:5px}
+   .dot.on{width:15px}
+   .bgnum{font-size:200px;right:-16px}
+ }
+ /* Совсем узкие/короткие: убираем таглайн и мету навбара, оставляем стрелки+точки+Далее */
+ @media (max-height: 430px){
+   .footbar .fb-tag{display:none}
+   .navbar .nmeta{display:none}
+   .navbar{padding:4px 4px 4px 6px}
+ }
+ /* Портрет-телефон: слайд 16:9 сильно letterbox-ится — просим повернуть.
+    ВАЖНО: база display:none объявлена ДО медиа-запроса, чтобы медиа (позже) выигрывал каскад. */
+ #rotateHint{display:none;position:fixed;inset:0;z-index:100;background:#FAF6F2;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:32px}
+ #rotateHint .rh-ic{font-size:52px;color:#8A1E3D}
+ #rotateHint b{font-size:19px;color:#2A0E18}
+ #rotateHint span{font-size:14px;color:#6B5157;max-width:320px}
+ @media (max-width: 760px) and (orientation: portrait){
+   #rotateHint{display:flex}
+ }
+</style>
+</head>
+<body>
+<div class="stage"></div>
+<div class="bg-dot"></div>
+<div class="bgnum" id="bgnum">01</div>
+
+<div class="reveal">
+ <div class="slides">
+
+  <!-- 01 · COVER -->
+  <section data-anim="cover">
+    <div class="eyebrow cv-eye">Magic Tree · План работ и оплата</div>
+    <h1 class="text-[60px] font-bold mt-5 tracking-[-0.03em]">
+      <span class="mask"><span class="cv-line">Пошаговый план на 4 месяца.</span></span>
+      <span class="mask"><span class="cv-line">Оплата — <span class="text-ac">за результат</span>.</span></span>
+    </h1>
+    <p class="text-[19px] text-t2 mt-7 max-w-[860px] cv-sub">Проект разбит на 5 понятных этапов. Каждый этап — рабочий результат, который вы принимаете и оплачиваете отдельно. Никакого большого аванса за «всё сразу вслепую».</p>
+    <div class="glowline w-[120px] mt-9 cv-glow"></div>
+    <div class="flex items-center gap-7 mt-9 cv-trust text-t3">
+      <div><div class="text-[26px] font-bold num text-ink">4</div><div class="lbl mt-0.5">месяца до запуска</div></div>
+      <div class="w-px h-10 bg-line"></div>
+      <div><div class="text-[26px] font-bold num text-ink">5</div><div class="lbl mt-0.5">этапов с приёмкой</div></div>
+      <div class="w-px h-10 bg-line"></div>
+      <div><div class="text-[26px] font-bold text-ink">Оплата</div><div class="lbl mt-0.5">по факту этапа</div></div>
+    </div>
+  </section>
+
+  <!-- 02 · HOW PAYMENT WORKS -->
+  <section data-anim="phases">
+    <div class="eyebrow anim-up">Как это устроено</div>
+    <h2 class="text-[44px] mt-3 anim-up">Вы платите шаг за шагом — за то, что уже видите.</h2>
+    <div class="grid grid-cols-3 gap-5 mt-10">
+      <div class="anim-up bg-surf border border-line rounded-card p-7 card-sh">
+        <i class="ph-duotone ph-hand-coins text-ac text-[30px]"></i>
+        <div class="text-[18px] font-semibold mt-4">Оплата по факту этапа</div>
+        <p class="text-[13.5px] text-t2 mt-2 leading-snug">Каждый этап оплачивается отдельно — когда он сдан и вы его приняли. Крупного аванса за весь проект нет.</p>
+      </div>
+      <div class="anim-up bg-surf border border-line rounded-card p-7 card-sh">
+        <i class="ph-duotone ph-eye text-ac text-[30px]"></i>
+        <div class="text-[18px] font-semibold mt-4">Всегда видите результат</div>
+        <p class="text-[13.5px] text-t2 mt-2 leading-snug">В конце каждого этапа — рабочий продукт: прототип, магазин, фишки. Вы платите за то, что можно потрогать.</p>
+      </div>
+      <div class="anim-up bg-surf border border-line rounded-card p-7 card-sh">
+        <i class="ph-duotone ph-arrows-clockwise text-ac text-[30px]"></i>
+        <div class="text-[18px] font-semibold mt-4">Гибко между этапами</div>
+        <p class="text-[13.5px] text-t2 mt-2 leading-snug">Между этапами можно скорректировать приоритеты. Начать можно с первого шага — без обязательства на всю сумму сразу.</p>
+      </div>
+    </div>
+    <div class="anim-up flex items-center gap-3 mt-8 chip chip-ac w-fit py-2.5 px-5 text-[13.5px] font-semibold">
+      <i class="ph-bold ph-shield-check"></i> Ваш риск ограничен одним текущим этапом — не всем проектом сразу
+    </div>
+  </section>
+
+  <!-- 03 · STAGES -->
+  <section data-anim="phases">
+    <div class="eyebrow anim-up">Что делаем по этапам</div>
+    <h2 class="text-[38px] mt-3 anim-up">Пять этапов — от макета до запуска.</h2>
+    <div class="mt-6 space-y-2.5">
+      <div class="anim-up phase !p-4 flex items-center gap-5">
+        <div class="flex-none w-[96px]"><span class="pnum">ЭТАП 1</span><div class="pbadge mt-1.5">Месяц 1</div></div>
+        <div class="flex-1"><div class="text-[15.5px] font-bold">Дизайн и прототип</div>
+          <p class="text-[12.5px] text-t2 mt-1 leading-snug">UX/UI всех экранов приложения и сайта, кликабельный прототип. Утверждаем весь продукт визуально до разработки.</p></div>
+      </div>
+      <div class="anim-up phase !p-4 flex items-center gap-5">
+        <div class="flex-none w-[96px]"><span class="pnum">ЭТАП 2</span><div class="pbadge mt-1.5">Месяц 2</div></div>
+        <div class="flex-1"><div class="text-[15.5px] font-bold">Ядро магазина</div>
+          <p class="text-[12.5px] text-t2 mt-1 leading-snug">Каталог, фильтры, карточка товара, поиск, корзина, оформление заказа, профиль — и сайт на том же каталоге. Рабочий магазин: можно оформлять заказы.</p></div>
+      </div>
+      <div class="anim-up phase !p-4 flex items-center gap-5">
+        <div class="flex-none w-[96px]"><span class="pnum">ЭТАП 3</span><div class="pbadge mt-1.5">Месяц 3</div></div>
+        <div class="flex-1"><div class="text-[15.5px] font-bold">Отличители</div>
+          <p class="text-[12.5px] text-t2 mt-1 leading-snug">Сканер штрихкода, подбор вина (квиз/пейринг), избранное, история заказов, чат через Telegram/WhatsApp — то, что выделяет на фоне обычных магазинов.</p></div>
+      </div>
+      <div class="anim-up phase !p-4 flex items-center gap-5">
+        <div class="flex-none w-[96px]"><span class="pnum">ЭТАП 4</span><div class="pbadge mt-1.5">Месяц 3–4</div></div>
+        <div class="flex-1"><div class="text-[15.5px] font-bold">Лояльность и самовывоз</div>
+          <p class="text-[12.5px] text-t2 mt-1 leading-snug">Бонусная карта (накопление/списание), push-акции, остатки по точке, карта и самовывоз, дегустации с бронью — удержание клиентов.</p></div>
+      </div>
+      <div class="anim-up phase !p-4 flex items-center gap-5">
+        <div class="flex-none w-[96px]"><span class="pnum">ЭТАП 5</span><div class="pbadge mt-1.5">Месяц 4</div></div>
+        <div class="flex-1"><div class="text-[15.5px] font-bold">Паритет и запуск</div>
+          <p class="text-[12.5px] text-t2 mt-1 leading-snug">Расширенная карточка (год, рейтинг, отзывы, вкус-профиль), реферальная программа, админ-панель, тестирование и публикация в сторах — релиз.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · PAYMENT SCHEDULE -->
+  <section data-anim="investment">
+    <div class="eyebrow anim-up">Оплата по этапам</div>
+    <h2 class="text-[42px] mt-3 anim-up">Платите за каждый сданный этап.</h2>
+    <div class="anim-up mt-8 bg-surf border border-line rounded-card card-sh overflow-hidden">
+      <div class="grid grid-cols-[120px_1fr_170px] px-7 py-3 bg-elev mono text-[11px] text-t3 uppercase tracking-wider">
+        <div>Этап</div><div>Что получаете</div><div class="text-right">Оплата этапа</div>
+      </div>
+      <div class="grid grid-cols-[120px_1fr_170px] px-7 py-3 border-t border-line items-center">
+        <span class="pnum">ЭТАП 1</span><div class="text-[13.5px]">Дизайн и кликабельный прототип</div>
+        <div class="text-right price text-[18px] text-ink"><span data-count="525000">525 000</span> ₽</div>
+      </div>
+      <div class="grid grid-cols-[120px_1fr_170px] px-7 py-3 border-t border-line items-center">
+        <span class="pnum">ЭТАП 2</span><div class="text-[13.5px]">Рабочий магазин: приложение + сайт</div>
+        <div class="text-right price text-[18px] text-ink"><span data-count="1050000">1 050 000</span> ₽</div>
+      </div>
+      <div class="grid grid-cols-[120px_1fr_170px] px-7 py-3 border-t border-line items-center">
+        <span class="pnum">ЭТАП 3</span><div class="text-[13.5px]">Отличители: сканер, подбор, чат</div>
+        <div class="text-right price text-[18px] text-ink"><span data-count="700000">700 000</span> ₽</div>
+      </div>
+      <div class="grid grid-cols-[120px_1fr_170px] px-7 py-3 border-t border-line items-center">
+        <span class="pnum">ЭТАП 4</span><div class="text-[13.5px]">Лояльность, самовывоз, дегустации</div>
+        <div class="text-right price text-[18px] text-ink"><span data-count="700000">700 000</span> ₽</div>
+      </div>
+      <div class="grid grid-cols-[120px_1fr_170px] px-7 py-3 border-t border-line items-center">
+        <span class="pnum">ЭТАП 5</span><div class="text-[13.5px]">Паритет, админка и запуск</div>
+        <div class="text-right price text-[18px] text-ink"><span data-count="525000">525 000</span> ₽</div>
+      </div>
+    </div>
+    <div class="anim-up flex items-center justify-between mt-5 dk px-8 py-5">
+      <div><div class="dlbl">Итого под ключ</div>
+        <div class="text-[14px] mt-1" style="color:#C9AAB4">Приложение + сайт на едином ядре · 5 платежей по сдаче этапов</div></div>
+      <div class="text-[40px] price" style="color:#fff"><span data-count="3500000">3 500 000</span> ₽</div>
+    </div>
+  </section>
+
+  <!-- 05 · FINALE -->
+  <section data-anim="finale">
+    <div class="eyebrow fl-eye">Начнём с первого шага</div>
+    <h1 class="text-[54px] font-bold mt-5 tracking-[-0.03em] max-w-[1000px]">
+      <span class="mask"><span class="fl-line">Никакого риска «всё сразу».</span></span>
+      <span class="mask"><span class="fl-line">Один этап — <span class="text-ac">один результат</span>.</span></span>
+    </h1>
+    <p class="text-[19px] text-t2 mt-6 max-w-[840px]">Стартуем с дизайна и прототипа — вы увидите весь продукт вживую и решите двигаться дальше. Дальше платите только за то, что приняли.</p>
+    <div class="glowline w-[120px] mt-8 fl-glow"></div>
+    <div class="flex items-center gap-8 mt-9 fl-stats text-t3">
+      <div><div class="text-[30px] font-bold num text-ink">4</div><div class="lbl mt-0.5">месяца</div></div>
+      <div class="w-px h-11 bg-line"></div>
+      <div><div class="text-[30px] font-bold num text-ink">5</div><div class="lbl mt-0.5">этапов и платежей</div></div>
+      <div class="w-px h-11 bg-line"></div>
+      <div><div class="text-[30px] font-bold text-ink">Прозрачно</div><div class="lbl mt-0.5">от прототипа до релиза</div></div>
+    </div>
+    <div class="flex items-center gap-3 mt-10 fl-logo">
+      <span class="logo"><i class="ph-fill ph-wine text-white text-[19px]"></i></span>
+      <div><div class="font-bold text-[15px]">MAGIC TREE</div><div class="mono text-[11px] text-t3">приложение и сайт · план работ и оплата</div></div>
+    </div>
+  </section>
+
+ </div>
+</div>
+
+<div class="topbar">
+  <div class="tb-left"><span class="logo !w-7 !h-7"><i class="ph-fill ph-wine text-white text-[13px]"></i></span> MAGIC TREE <span class="eyebrow">КП</span></div>
+  <div class="tb-right" id="tbSection">Обложка</div>
+</div>
+<div class="footbar">
+  <div class="fb-side">Magic Tree · 2026</div>
+  <div class="fb-tag" id="fbTag"></div>
+  <div class="fb-side fb-num"><b id="fbNum">01</b> / 10</div>
+</div>
+
+<div class="navbar">
+  <button class="nbtn" id="prevBtn" aria-label="Назад"><i class="ph-bold ph-arrow-left"></i></button>
+  <div class="nmeta"><span class="mono"><b id="curNum">01</b>/<span id="totNum">10</span></span> · <b id="slLabel">Обложка</b></div>
+  <div class="dots" id="dots"></div>
+  <button class="nbtn primary" id="nextBtn">Далее <i class="ph-bold ph-arrow-right"></i></button>
+</div>
+<div class="grain"></div>
+
+<div id="rotateHint">
+  <i class="ph-fill ph-device-rotate rh-ic"></i>
+  <b>Поверните телефон горизонтально</b>
+  <span>Презентация рассчитана на широкий экран — в альбомной ориентации она раскрывается полностью.</span>
+</div>
+
+<script>
+(function(){
+  const LABELS=['Обложка','Как платите','Этапы','Оплата','Финал'];
+  const SECTIONS=['Обложка','Принцип','План','Оплата','Финал'];
+  const TAGLINES=[
+    'Пошаговый план на 4 месяца — оплата за результат.',
+    'Платите шаг за шагом — за то, что уже видите.',
+    'Пять этапов: от макета до запуска.',
+    'Оплата привязана к сдаче каждого этапа.',
+    'Один этап — один результат. Начнём с первого шага.'
+  ];
+
+  Reveal.initialize({
+    hash:true, controls:false, progress:false, slideNumber:false,
+    transition:'slide', transitionSpeed:'default', backgroundTransition:'fade',
+    width:1280, height:720, margin:0, minScale:.2, maxScale:2, center:true, keyboard:true, touch:true
+  });
+
+  const dotsEl=document.getElementById('dots');
+  LABELS.forEach((_,i)=>{ const d=document.createElement('span'); d.className='dot'; d.onclick=()=>Reveal.slide(i); dotsEl.appendChild(d); });
+  const dots=[...dotsEl.children];
+  const N=LABELS.length;
+  document.getElementById('totNum').textContent=String(N).padStart(2,'0');
+  document.querySelector('.fb-num').innerHTML='<b id="fbNum">01</b> / '+String(N).padStart(2,'0');
+  function pad(n){return String(n+1).padStart(2,'0');}
+  function updateBar(i){
+    document.getElementById('curNum').textContent=pad(i);
+    document.getElementById('slLabel').textContent=LABELS[i]||'';
+    document.getElementById('tbSection').textContent=SECTIONS[i]||'';
+    document.getElementById('fbTag').textContent=TAGLINES[i]||'';
+    const fn=document.getElementById('fbNum'); if(fn) fn.textContent=pad(i);
+    document.getElementById('bgnum').textContent=pad(i);
+    dots.forEach((d,k)=>d.classList.toggle('on',k===i));
+    document.getElementById('prevBtn').disabled = i===0;
+    const nb=document.getElementById('nextBtn');
+    if(i===N-1){ nb.innerHTML='В начало <i class="ph-bold ph-arrow-counter-clockwise"></i>'; nb.onclick=()=>Reveal.slide(0); }
+    else { nb.innerHTML='Далее <i class="ph-bold ph-arrow-right"></i>'; nb.onclick=()=>Reveal.next(); }
+  }
+  document.getElementById('prevBtn').onclick=()=>Reveal.prev();
+  document.getElementById('nextBtn').onclick=()=>Reveal.next();
+
+  function fmt(v,dec){ let s=dec?(+v).toFixed(dec):Math.round(v).toString(); const p=s.split('.'); p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,' '); return p.join('.'); }
+  function runCount(el){
+    const t=parseFloat(el.dataset.count), dec=+(el.dataset.dec||0), pre=el.dataset.pre||'', suf=el.dataset.suf||'';
+    const o={v:0}; gsap.killTweensOf(o);
+    gsap.to(o,{v:t,duration:1.1,ease:'power2.out',onUpdate:()=>{el.textContent=pre+fmt(o.v,dec)+suf;},onComplete:()=>{el.textContent=pre+fmt(t,dec)+suf;}});
+  }
+  function drawPath(p,dur,delay){ const len=p.getTotalLength(); if(!len) return; p.style.strokeDasharray=len; p.style.strokeDashoffset=len; gsap.to(p.style,{strokeDashoffset:0,duration:dur,delay:delay||0,ease:'power2.out'}); }
+  function headsUp(s){ const els=s.querySelectorAll('.anim-up'); if(els.length) gsap.from(els,{opacity:0,y:18,duration:.55,stagger:.06,ease:'power2.out'}); }
+
+  const ANIM={
+    cover(s){ const tl=gsap.timeline();
+      tl.from(s.querySelector('.cv-eye'),{opacity:0,y:10,duration:.5,ease:'power2.out'})
+        .from(s.querySelectorAll('.cv-line'),{yPercent:115,duration:.7,stagger:.1,ease:'power3.out'},'-=.1')
+        .from(s.querySelector('.cv-sub'),{opacity:0,y:14,duration:.5},'-=.3')
+        .fromTo(s.querySelector('.cv-glow'),{scaleX:0},{scaleX:1,duration:.6,ease:'power2.out'},'-=.25')
+        .from(s.querySelector('.cv-trust'),{opacity:0,y:14,duration:.5},'-=.3'); },
+    scale(s){ headsUp(s); s.querySelectorAll('[data-count]').forEach(runCount); },
+    problem(s){ headsUp(s); },
+    reference(s){ headsUp(s); s.querySelectorAll('[data-count]').forEach(runCount); },
+    scope(s){ headsUp(s); },
+    architecture(s){ headsUp(s); s.querySelectorAll('.arch-link').forEach((p,i)=>drawPath(p,.7,.5+i*.15)); },
+    phases(s){ headsUp(s); },
+    investment(s){ headsUp(s); s.querySelectorAll('[data-count]').forEach(runCount); },
+    whyus(s){ headsUp(s); },
+    finale(s){ const tl=gsap.timeline();
+      tl.from(s.querySelector('.fl-eye'),{opacity:0,y:10,duration:.45,ease:'power2.out'})
+        .from(s.querySelectorAll('.fl-line'),{yPercent:118,duration:.7,stagger:.1,ease:'power3.out'},'-=.1')
+        .fromTo(s.querySelector('.fl-glow'),{scaleX:0},{scaleX:1,duration:.6,ease:'power2.out'},'-=.2')
+        .from(s.querySelector('.fl-stats'),{opacity:0,y:14,duration:.5},'-=.2')
+        .from(s.querySelector('.fl-logo'),{opacity:0,y:12,duration:.45},'-=.2'); }
+  };
+  function runAnim(slide){ const k=slide&&slide.dataset.anim; if(k&&ANIM[k]) ANIM[k](slide); }
+
+  Reveal.on('ready',e=>{ updateBar(e.indexh); runAnim(e.currentSlide); });
+  Reveal.on('slidechanged',e=>{ updateBar(e.indexh); runAnim(e.currentSlide); });
+})();
+</script>
+</body>
+</html>
